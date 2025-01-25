@@ -1,0 +1,48 @@
+show databases;
+use database;
+db.createCollection("users")
+show collections
+db.users.insert({"name": "alina", "age":"24"})
+db.users.drop()
+---- create queries ---
+db.users.insertOne({"name": "alina", "age":"24"})
+db.users.insertMany([{"name": "alex", "age":"25", "hobbies":["dance"], "id":"2"}, {"name": "alaya", "age":"20", "hobbies":["cooking"], id":"3"}, {"name": "harry", "age":"30", "hobbies":["music"], "id":"4"}])
+db.users.insertOne({"name":"john", "age":"20", "_id": "1"});
+---read ---
+db.users.find();
+db.users.findOne();
+db.users.find({}, {"name":1});
+db.users.find({}, {"_id": 0, "name":1})
+db.users.find({}, {"age":1, "_id": 0})
+db.users.find({name:"alina"})
+db.users.find({name:"alina"}, {"name":1, "_id":0, "hobbies":1})
+db.users.find({"name": {$ne:"alina"}});//not equal
+db.users.find({"name": {$ne:["alina", "harry"]}})
+db.users.find({"hobbies":{$in:["music", "dance"]}})
+db.users.find({"age": {$gte: "24"}}, {"name": 1})
+db.users.find({"age": {$gt: "24"}}, {"name": 1})
+db.users.find({"age": {$lte: "24"}}, {"name": 1})
+db.users.find({"age": {$lt: "24"}}, {"name": 1})
+db.users.find({$or: [{"name":"alina"}, {"name":"john"}]})
+db.users.find({$and: [{"name":"alina"}, {"name":"john"}]})
+--- order for array field----
+db.users.find({"hobbies": ["dance"]})
+ db.users.find({"hobbies": ["dance", "cooking"]})
+ db.users.find({"hobbies": ["cooking", "dance"]})
+ db.users.find({"hobbies": {$all:["dance", "cooking"]}})
+--- object---
+db.users.find({"contact.email": "admin@gmail.com"})
+db.peaks.find({"ascents.first.year": "1953"})
+---count---
+db.users.find({"age": {$lt: "24"}}, {"name": 1}).count()
+db.users.find().count()
+----- update ----
+db.users.updateOne({"name":"alina"}, {$set: {"age": "30"}})
+db.users.updateMany({"name":"harry"}, {$set: {"age":"30"}})
+--- delete ----
+ db.users.deleteOne({"id": "3"})
+ db.users.deleteMany({"name": "harry"})
+db.users.deleteMany({"hobbies":{$in: ["music"]}})
+
+
+
