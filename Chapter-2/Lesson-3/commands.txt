@@ -1,0 +1,36 @@
+----- pagination ------
+db.movies.find();
+db.movies.find().limit(2);
+db.movies.find({},{director: 1}).limit(4)
+db.movies.find({},{director: 1, lead_actor: 1}).skip(2).limit(2)
+db.movies.find({},{director: 1, lead_actor: 1}).skip(10).limit(10)
+
+db.movies.find({"release_year": 1986},{}).explain()
+db.movies.find({"release_year": 1986},{}).explain("executionStats")
+
+--index---
+db.movies.getIndexes()
+---simple---
+db.movies.createIndex({language: 1})
+db.movies.find({"language": "English"},{})
+db.movies.find({"language": "English"},{}).count()
+db.movies.find({"language": "English"},{}).explain("executionStats")
+db.movies.dropIndex("language_1")
+---- multiple key index----- 
+db.movies.createIndex({language: 1, release_year: 1})
+db.movies.find({"language": "English", release_year: 1990})
+db.movies.find({"language": "English", release_year: 1990}).explain("executionStats")
+-- compound ----
+db.movies.createIndex({genres: 1})
+db.movies.find({genres: ["Thriller"]})
+db.movies.find({genres: ["Thriller"]}).explain("executionStats")
+
+---- aggregate ---
+db.movies.aggregate([{$match: {rating: 4.9}}])
+
+
+
+
+
+
+
