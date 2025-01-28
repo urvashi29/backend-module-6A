@@ -17,7 +17,6 @@ db.users.find({}, {"age":1, "_id": 0})
 db.users.find({name:"alina"})
 db.users.find({name:"alina"}, {"name":1, "_id":0, "hobbies":1})
 db.users.find({"name": {$ne:"alina"}});//not equal
-db.users.find({"name": {$ne:["alina", "harry"]}})
 db.users.find({"hobbies":{$in:["music", "dance"]}})
 db.users.find({"age": {$gte: "24"}}, {"name": 1})
 db.users.find({"age": {$gt: "24"}}, {"name": 1})
