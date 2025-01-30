@@ -1,0 +1,19 @@
+---- aggregate---
+db.movies.aggregate([{$match: {rating: 5.6}}])
+db.movies.aggregate([{$match: {release_year: 1986}}, {$limit: 4}])
+ db.movies.aggregate([{$match: {release_year: 1986}}, {$project: {title: 1, director: 1}}])
+db.movies.aggregate([{$group: {_id: "$id", language: {$push: "$language"} }}])
+ db.movies.aggregate([{$group: {_id: "$id", data: {$push: {language: "$language", actor: "$lead_actor"}} }}])
+
+db.movies.aggregate([{$group: {_id: "$lead_actor", number: {$sum: 1}}}])
+ db.movies.find({lead_actor: "Jennifer Lawrence"}).count()
+db.movies.aggregate([{$match: {release_year: 1986}}, {$count: "movies"}])
+db.movies.find({release_year: 1986}).count()
+
+db.movies.aggregate([{$group: {_id: { director: "$director", year: "$release_year"}}}])
+db.movies.aggregate([{$group: {_id: {director: "$director", year: "$release_year"}}}, {$sort: {"_id.director": 1}}])
+ db.movies.aggregate([{$group: {_id: {year: "$release_year"}, total: {$sum: "$duration_minutes"}}}, {$sort: {"_id.year": 1}}])
+db.movies.aggregate([{$match: {_id: ObjectId('6798ecedb47dc62e0a230938')}}, {$unwind: "$genres"}])
+
+--- sales data---
+db.sales.aggregate([{$group: {_id: "$purchaseMethod", location: "${storelocation}"}}])
