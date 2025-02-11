@@ -1,0 +1,28 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "nodemonConfig": {
+    "watch": [
+      "./index.js"
+    ],
+    "ext": "js",
+    "ignore": [
+      "*.test.js"
+    ],
+    "delay": "3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "mymodule": "file:mymodule",
+    "nodemon": "^3.1.9"
+  }
+}
